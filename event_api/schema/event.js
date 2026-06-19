@@ -19,7 +19,7 @@ const eventSchema = new mongoose.Schema(
       trim: true,
     },
     date: {
-      type: Date,
+      type: String,
       required: true,
     },
     time: {
@@ -27,8 +27,13 @@ const eventSchema = new mongoose.Schema(
        required: true,
     },
     capacity: {
-      type: String,
+      type: Number,
       required: true,
+    },
+     booked: {
+      type: Number,
+      required: true,
+      default: 0
     },
     category: {
       type: String,

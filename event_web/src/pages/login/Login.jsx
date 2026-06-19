@@ -77,17 +77,17 @@ function Login() {
                     </div>
 
                     <div className="flex items-center justify-between text-sm">
-                        <label className="flex items-center gap-2">
+                        {/* <label className="flex items-center gap-2">
                             <input type="checkbox"
                                 checked={loginObj.isAdmin}
                                 className="accent-blue-600"
                                 onChange={toggleIsAdmin} />
                             Is Admin
-                        </label>
+                        </label> */}
 
-                        <a href="#" className="text-blue-600 hover:underline">
+                        {/* <a href="#" className="text-blue-600 hover:underline">
                             Forgot Password?
-                        </a>
+                        </a> */}
                     </div>
 
                     <button

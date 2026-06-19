@@ -29,7 +29,7 @@ function Dashboard() {
                     </h1>
                     <button
                         onClick={handleLogout}
-                        className="rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-gray-700 transition-colors duration-200 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+                        className="rounded-lg border border-gray-300 bg-white cursor-pointer px-4 py-2 text-sm font-semibold text-gray-700 transition-colors duration-200 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
                     >
                         Logout
                     </button>

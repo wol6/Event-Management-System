@@ -6,11 +6,12 @@ export const eventList = async (req, res) => {
         let filter = {}
         const search = req.query.search
         let pageNo = parseInt(req.query.pageNo)
-        const limit = 3
+        let limit = parseInt(req.query.limit)
         const userid = req.user.id
 
         if (search) {
             pageNo = 0
+            limit = 0
             filter = { title: { $regex: search, $options: "i" } }
         }
 

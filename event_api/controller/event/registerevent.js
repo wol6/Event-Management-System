@@ -1,20 +1,28 @@
 import mongoose from "mongoose"
 import RegEvent from "../../schema/registerevent.js"
+import EventModel from "../../schema/event.js"
 
 
 export const regAttendee = async (req, res) => {
     try {
-        const eventdid = req.body.id
+        const eventid = req.body.id
         const userid = req.user.id
         console.log('antendee')
-        if (!eventdid) {
+        if (!eventid) {
             return res.status(400).json({
                 success: false,
                 message: "Event ID is required to register."
             })
         }
 
-        await RegEvent.create({ event: eventdid, user: userid })
+        const event = await EventModel.findById(eventid).lean()
+
+        if (event.booked >= event.capacity) {
+            return res.status(400).json({ message: "This event is completely sold out" });
+        }
+        await EventModel.findByIdAndUpdate(eventid, { $inc: { booked: 1 } });
+
+        await RegEvent.create({ event: eventid, user: userid })
 
         return res.status(200).json({
             success: true,

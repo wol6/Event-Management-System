@@ -5,6 +5,15 @@ function EventDialog({ open, setOpen, editEventObj }) {
 
     const dialogRef = useRef(null)
 
+    const [categories] = useState([
+        "Workshop",
+        "Conference",
+        "Seminar",
+        "Meetup",
+        "Hackathon",
+        "Meeting"
+    ])
+
     const initialFormState = {
         title: "",
         description: "",
@@ -102,7 +111,7 @@ function EventDialog({ open, setOpen, editEventObj }) {
                                 name='title'
                                 value={eventObj.title}
                                 type="text"
-                                placeholder="React Workshop 2026"
+                                placeholder="Workshop XYZ"
                                 className="w-full rounded-lg border border-gray-300 px-4 py-2.5 outline-none focus:border-blue-500"
                                 onChange={handleChange}
                             />
@@ -190,15 +199,22 @@ function EventDialog({ open, setOpen, editEventObj }) {
                                 <label htmlFor="category" className="mb-2 block text-sm font-medium text-gray-700">
                                     Category
                                 </label>
-                                <input
+                                <select
                                     id="category"
-                                    name='category'
+                                    name="category"
                                     value={eventObj.category}
-                                    type="text"
-                                    placeholder="meeting"
-                                    className="w-full rounded-lg border border-gray-300 px-4 py-2.5 outline-none focus:border-blue-500"
                                     onChange={handleChange}
-                                />
+                                    className="w-full rounded-lg border border-gray-300 px-4 py-2.5 outline-none bg-white focus:border-blue-500 cursor-pointer"
+                                    required
+                                >
+                                    <option value="">Select Category</option>
+
+                                    {categories.map((cat, index) => (
+                                        <option key={index} value={cat}>
+                                            {cat}
+                                        </option>
+                                    ))}
+                                </select>
                             </div>
                         </div>
 
@@ -227,7 +243,7 @@ function EventDialog({ open, setOpen, editEventObj }) {
                                 type="submit"
                                 className="rounded-lg bg-blue-600 px-6 py-2.5 font-medium text-white hover:bg-blue-700 transition shadow-sm"
                             >
-                               {editEventObj?"Update Event":" Create Event"}
+                                {editEventObj ? "Update Event" : " Create Event"}
                             </button>
                         </div>
                     </form>

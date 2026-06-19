@@ -16,7 +16,12 @@ function EventList() {
     }, [])
     async function showEvents() {
         try {
-            const { data: resp } = await api.get('/show-event')
+            const { data: resp } = await api.get('/show-event',{
+                params: {
+                    pageNo: 0,
+                    limit:0,
+                }
+            })
             if (resp.success) {
                 setEvents(resp.list)
             }
@@ -28,7 +33,7 @@ function EventList() {
     async function handleView(event) {
         setAttOpen(true)
         setSelectedEvent(event)
-        
+
         try {
             const { data: resp } = await api.get('/get-attendee', {
                 params: { id: event._id }
@@ -48,11 +53,12 @@ function EventList() {
     }
     async function handleEdit(event) {
         setOpen(true)
-        console.log(event)
         setEditEventObj(event)
 
     }
     async function handleDelete(event) {
+        const userConfirmed = window.confirm("Are You Sure")
+        if (!userConfirmed) return
         try {
             const { data: resp } = await api.delete(`/delete-event/${event._id}`)
             if (resp.success) {
@@ -101,16 +107,16 @@ function EventList() {
                                 <div className="flex justify-end gap-3">
                                     {/* View Button */}
                                     <button onClick={() => handleView(event)}
-                                        className="text-blue-600 hover:text-blue-900 transition-colors">
+                                        className="text-blue-600 cursor-pointer hover:text-blue-900 transition-colors">
                                         View
                                     </button>
                                     {/* Edit Button */}
-                                    <button className="text-amber-600 hover:text-amber-900 transition-colors"
+                                    <button className="text-amber-600 cursor-pointer hover:text-amber-900 transition-colors"
                                         onClick={() => handleEdit(event)}>
                                         Edit
                                     </button>
                                     {/* Delete Button */}
-                                    <button className="text-red-600 hover:text-red-900 transition-colors"
+                                    <button className="text-red-600 cursor-pointer hover:text-red-900 transition-colors"
                                         onClick={() => handleDelete(event)}>
                                         Delete
                                     </button>

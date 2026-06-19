@@ -47,16 +47,16 @@ function EventCard({ events }) {
                             <p>📍 <span className="font-medium">{event.location}</span></p>
                             <p>📅 <span className="font-medium">{event.date}</span></p>
                             <p>🕒 <span className="font-medium">{event.time}</span></p>
-                            <p>👥 <span className="font-medium">{event.capacity} Seats</span></p>
+                            <p>👥 <span className="font-medium">{event.booked}/{event.capacity} Seats</span></p>
                         </div>
 
                         <button className={`mt-6 w-full rounded-lg py-3 font-semibold transition ${event.isJoined
                                 ? "bg-blue-400 text-white cursor-not-allowed"
-                                : "bg-blue-600 text-white hover:bg-blue-700"
+                                : "bg-blue-600 text-white cursor-pointer hover:bg-blue-700"
                             }`}
                             disabled={event.isJoined}
                             onClick={() => handleAttendes(event._id)}>
-                            {event.isJoined ? "Joined" : "Register"}
+                            {event.isJoined ? "Booked" : "Register"}
                         </button>
                     </div>
                 </div>

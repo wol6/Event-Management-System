@@ -15,15 +15,17 @@ function UserHome() {
     }, [currentPage,searchQuery])
 
     async function showEvents() {
+        const limit = 3
         try {
             const { data: resp } = await api.get('/show-event',{
                 params:{
                     pageNo:currentPage,
+                    limit,
                     search:searchQuery
                 }
             })
             if (resp.success) {
-                const totalPage = Math.ceil(resp.list.length/3)
+                const totalPage = Math.ceil(resp.list.length/limit)
                 setTotalPages(totalPage)
                 setEvents(resp.list)
             }
@@ -41,7 +43,6 @@ function UserHome() {
             console.log(e)
         }
     }
-    console.log(currentPage)
     return (
         <div className="min-h-screen bg-gray-50 text-gray-800 antialiased">
             {/* 1. Header Banner & Logout Row */}
@@ -52,7 +53,7 @@ function UserHome() {
                     </h1>
                     <button
                         onClick={handleLogout}
-                        className="rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-gray-700 transition-colors duration-200 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+                        className="rounded-lg cursor-pointer border border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-gray-700 transition-colors duration-200 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
                     >
                         Logout
                     </button>
