@@ -1,17 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import api from "../../api/axios";
+import Reservation from "./Reservation";
 
-function EventCard({ events,setRefresh }) {
+function EventCard({ events, setRefresh }) {
+    const [openDialog, setOpenDialog] = useState(false)
+    const [eventObj,setEventObj] = useState({})
 
     async function handleAttendes(id) {
         try {
             const { data: resp } = await api.post('/reg-event', { id })
             if (resp.success) {
-                setRefresh(prev=>prev+1)
+                setRefresh(prev => prev + 1)
             }
         } catch (e) {
             console.log(e)
         }
+    }
+    function openDialogBox(event){
+        setOpenDialog(true)
+        setEventObj(event)
     }
     return (
         <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
@@ -56,12 +63,14 @@ function EventCard({ events,setRefresh }) {
                             : "bg-blue-600 text-white cursor-pointer hover:bg-blue-700"
                             }`}
                             disabled={event.isJoined}
-                            onClick={() => handleAttendes(event._id)}>
-                            {event.isJoined ? "Booked" : "Register"}
+                            // onClick={() => handleAttendes(event._id)}
+                            onClick={() => openDialogBox(event)}   >
+                            {event.isJoined ? "Joined" : "Register"}
                         </button>
                     </div>
                 </div>
             ))}
+            <Reservation open={openDialog} setOpen={setOpenDialog} eventObj={eventObj} />
         </div>
     );
 }
