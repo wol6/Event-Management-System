@@ -27,7 +27,7 @@ function ViewAttendee({ attOpen, setAttOpen,selectedEvent,attendeeList }) {
                         <h2 className="text-2xl font-bold text-gray-900">{selectedEvent.title}</h2>
                         <button
                             onClick={() => setAttOpen(false)}
-                            className="text-3xl text-gray-400 hover:text-gray-600 transition"
+                            className="text-3xl text-gray-400 cursor-pointer hover:text-gray-600 transition"
                         >
                             &times;
                         </button>

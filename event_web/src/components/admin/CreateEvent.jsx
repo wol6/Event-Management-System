@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import api from '../../api/axios'
 import EventDialog from './EventDialog'
 
-function CreateEvent() {
+function CreateEvent({onRefresh}) {
     const [open, setOpen] = useState(false)
 
     return (
@@ -20,7 +20,7 @@ function CreateEvent() {
                 </button>
             </div>
 
-            <EventDialog open={open} setOpen={setOpen}/>
+            <EventDialog open={open} setOpen={setOpen} onRefresh={onRefresh}/>
 
         </>
     )

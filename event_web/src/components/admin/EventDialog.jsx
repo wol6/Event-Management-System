@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import api from '../../api/axios'
 
-function EventDialog({ open, setOpen, editEventObj }) {
+function EventDialog({ open, setOpen, editEventObj,onRefresh }) {
 
     const dialogRef = useRef(null)
 
@@ -66,12 +66,14 @@ function EventDialog({ open, setOpen, editEventObj }) {
                 if (resp.success) {
                     setEventObj(initialFormState)
                     setOpen(false)
+                    onRefresh()
                 }
             } else {
                 const { data: resp } = await api.post('/add-event', eventObj)
                 if (resp.success) {
                     setEventObj(initialFormState)
                     setOpen(false)
+                    onRefresh()
                 }
             }
         } catch (e) {
@@ -92,7 +94,7 @@ function EventDialog({ open, setOpen, editEventObj }) {
                         <h2 className="text-2xl font-bold text-gray-900">Create Event</h2>
                         <button
                             onClick={() => setOpen(false)}
-                            className="text-3xl text-gray-400 hover:text-gray-600 transition"
+                            className="text-3xl text-gray-400 cursor-pointer hover:text-gray-600 transition"
                         >
                             &times;
                         </button>
@@ -235,13 +237,13 @@ function EventDialog({ open, setOpen, editEventObj }) {
                             <button
                                 type="button"
                                 onClick={() => setOpen(false)}
-                                className="rounded-lg border border-gray-300 px-6 py-2.5 font-medium text-gray-700 hover:bg-gray-50 transition"
+                                className="rounded-lg border border-gray-300 px-6 py-2.5 cursor-pointer font-medium text-gray-700 hover:bg-gray-50 transition"
                             >
                                 Cancel
                             </button>
                             <button
                                 type="submit"
-                                className="rounded-lg bg-blue-600 px-6 py-2.5 font-medium text-white hover:bg-blue-700 transition shadow-sm"
+                                className="rounded-lg bg-blue-600 px-6 py-2.5 cursor-pointer font-medium text-white hover:bg-blue-700 transition shadow-sm"
                             >
                                 {editEventObj ? "Update Event" : " Create Event"}
                             </button>

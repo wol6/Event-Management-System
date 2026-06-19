@@ -3,7 +3,7 @@ import api from '../../api/axios'
 import EventDialog from './EventDialog'
 import ViewAttendee from './ViewAttendee'
 
-function EventList() {
+function EventList({refreshList}) {
     const [open, setOpen] = useState(false)
     const [attOpen, setAttOpen] = useState(false)
     const [events, setEvents] = useState([])
@@ -13,7 +13,7 @@ function EventList() {
 
     useEffect(() => {
         showEvents()
-    }, [])
+    }, [refreshList])
     async function showEvents() {
         try {
             const { data: resp } = await api.get('/show-event',{

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import EventList from '../../components/admin/EventList';
 import CreateEvent from '../../components/admin/CreateEvent';
 import api from '../../api/axios';
@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 function Dashboard() {
     const navigate = useNavigate()
+    const [refreshList,setRefreshList] = useState(0)
 
     async function handleLogout() {
         try {
@@ -16,6 +17,10 @@ function Dashboard() {
         } catch (e) {
             console.log(e)
         }
+    }
+
+    function triggerRefresh(){
+        setRefreshList((prev)=>prev+1)
     }
 
 
@@ -39,10 +44,10 @@ function Dashboard() {
             {/* Main Dashboard Layout Container */}
             <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
 
-                <CreateEvent />
+                <CreateEvent onRefresh={triggerRefresh}/>
                 <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
                     <div className="overflow-x-auto">
-                        <EventList />
+                        <EventList refreshList={refreshList} />
                     </div>
                 </div>
 
