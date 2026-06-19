@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 
 function UserHome() {
     const navigate = useNavigate()
+    const [refresh,setRefresh] = useState(0)
     const [events, setEvents] = useState([])
     const [currentPage,setCurrentPage] = useState(0)
     const [totalPages,setTotalPages] = useState(0)
@@ -12,7 +13,7 @@ function UserHome() {
 
     useEffect(() => {
         showEvents()
-    }, [currentPage,searchQuery])
+    }, [currentPage,searchQuery,refresh])
 
     async function showEvents() {
         const limit = 3
@@ -86,7 +87,7 @@ function UserHome() {
                 </div>
 
                 {/* Events Grid */}
-                <EventCard events={events} />
+                <EventCard events={events} setRefresh={setRefresh}/>
                 <div className="mt-4 flex justify-center items-center gap-2 flex-wrap">
                     {/* Previous */}
                     <button

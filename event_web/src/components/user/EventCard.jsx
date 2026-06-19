@@ -1,12 +1,13 @@
 import React from "react";
 import api from "../../api/axios";
 
-function EventCard({ events }) {
+function EventCard({ events,setRefresh }) {
+
     async function handleAttendes(id) {
         try {
             const { data: resp } = await api.post('/reg-event', { id })
             if (resp.success) {
-                console.log(resp)
+                setRefresh(prev=>prev+1)
             }
         } catch (e) {
             console.log(e)
@@ -51,8 +52,8 @@ function EventCard({ events }) {
                         </div>
 
                         <button className={`mt-6 w-full rounded-lg py-3 font-semibold transition ${event.isJoined
-                                ? "bg-blue-400 text-white cursor-not-allowed"
-                                : "bg-blue-600 text-white cursor-pointer hover:bg-blue-700"
+                            ? "bg-blue-400 text-white cursor-not-allowed"
+                            : "bg-blue-600 text-white cursor-pointer hover:bg-blue-700"
                             }`}
                             disabled={event.isJoined}
                             onClick={() => handleAttendes(event._id)}>
