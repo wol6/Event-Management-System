@@ -14,7 +14,7 @@ app.use(express.json())
 app.use(cookieParser())
 app.use('/api', route)
 
-const atlasUrl = "mongodb+srv://alwyn:alwyn@mycluster.qraoczx.mongodb.net/events"
+const atlasUrl = ""
 const localUrl = "mongodb://localhost:27017/events"
 
 mongoose.connect(atlasUrl).then(() => {
