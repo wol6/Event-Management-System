@@ -32,7 +32,7 @@ function Reservation({open,setOpen,eventObj}) {
                         &times;
                     </button>
                 </div>
-            <SeatCard/>
+            <SeatCard eventObj={eventObj}/>
 
             </div>
         </dialog>

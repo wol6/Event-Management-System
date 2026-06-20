@@ -4,7 +4,7 @@ import EventModel from "../../schema/event.js";
 export const createEvent = async (req, res) => {
     console.log('event')
     try {
-        const { title, description, location, date, time, category, image } = req.body
+        const { title, description, location, date, time, category, image,eventType } = req.body
         const  capacity= Number(req.body.capacity)
         if (!title || !description || !location || !date || !time || !capacity || !category) {
             return res.status(400).json({ message: "All mandatory fields are required" })
@@ -23,6 +23,7 @@ export const createEvent = async (req, res) => {
             time,
             capacity,
             category,
+            eventType,
             image: image || "",
             createdBy: creatorId
         })

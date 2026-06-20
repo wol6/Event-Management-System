@@ -12,9 +12,8 @@ const regEventSchema = new mongoose.Schema(
       ref: "users", 
       required:true
     },
-    registeredAt: {
-      type: Date,
-      default: Date.now, 
+    seatNo: {
+      type: Number
     },
   },
   {

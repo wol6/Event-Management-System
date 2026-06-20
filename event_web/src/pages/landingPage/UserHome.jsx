@@ -26,7 +26,7 @@ function UserHome() {
                 }
             })
             if (resp.success) {
-                const totalPage = Math.ceil(resp.list.length/limit)
+                const totalPage = Math.ceil(resp.totalPgCount/limit)
                 setTotalPages(totalPage)
                 setEvents(resp.list)
             }
@@ -88,6 +88,7 @@ function UserHome() {
 
                 {/* Events Grid */}
                 <EventCard events={events} setRefresh={setRefresh}/>
+                
                 <div className="mt-4 flex justify-center items-center gap-2 flex-wrap">
                     {/* Previous */}
                     <button
@@ -101,7 +102,7 @@ function UserHome() {
 
                     {/* Next */}
                     <button
-                        disabled={currentPage === totalPages}
+                        disabled={currentPage >= totalPages-1}
                         onClick={() => setCurrentPage((prev) => prev + 1)}
                         className="px-3 py-2 border rounded-lg disabled:opacity-50 hover:bg-gray-100"
                     >

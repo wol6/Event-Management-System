@@ -4,9 +4,19 @@ import Reservation from "./Reservation";
 
 function EventCard({ events, setRefresh }) {
     const [openDialog, setOpenDialog] = useState(false)
-    const [eventObj,setEventObj] = useState({})
+    const [eventObj, setEventObj] = useState({})
+
+    function handleRegistration(event) {
+        if (event.eventType == "open") {
+            handleAttendes(event._id)
+        } else {
+            openDialogBox(event)
+        }
+    }
 
     async function handleAttendes(id) {
+        const userConfirmed = window.confirm("Are you sure you want to register for this event?")
+        if (!userConfirmed) return
         try {
             const { data: resp } = await api.post('/reg-event', { id })
             if (resp.success) {
@@ -16,7 +26,7 @@ function EventCard({ events, setRefresh }) {
             console.log(e)
         }
     }
-    function openDialogBox(event){
+    function openDialogBox(event) {
         setOpenDialog(true)
         setEventObj(event)
     }
@@ -64,14 +74,17 @@ function EventCard({ events, setRefresh }) {
                             }`}
                             disabled={event.isJoined}
                             // onClick={() => handleAttendes(event._id)}
-                            onClick={() => openDialogBox(event)}   >
+                            onClick={() => handleRegistration(event)}
+                        // onClick={() => openDialogBox(event)}   
+                        >
                             {event.isJoined ? "Joined" : "Register"}
                         </button>
                     </div>
                 </div>
-            ))}
+            ))
+            }
             <Reservation open={openDialog} setOpen={setOpenDialog} eventObj={eventObj} />
-        </div>
+        </div >
     );
 }
 

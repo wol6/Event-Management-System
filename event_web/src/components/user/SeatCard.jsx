@@ -1,24 +1,21 @@
 import React, { useState } from 'react'
 
-function SeatCard() {
-    const totalSeats = 50;
-    const seatsArray = Array.from({ length: totalSeats }, (_, index) => index + 1);
+function SeatCard({eventObj}) {
+    const totalSeats = eventObj.capacity
+    const seatsArray = Array.from({ length: totalSeats }, (_, index) => index + 1)
 
-    // State to track the single selected seat number (null means none selected)
-    const [selectedSeat, setSelectedSeat] = useState(null);
-    const booked = [5,9]
+    const [selectedSeat, setSelectedSeat] = useState(null)
+    const booked = []
+    // const booked = eventObj.bookedArr
 
     const handleSeatClick = (seatNumber) => {
-        // If clicking the already selected seat, deselect it. Otherwise, select the new one.
-        setSelectedSeat(prevSeat => prevSeat === seatNumber ? null : seatNumber);
+        setSelectedSeat(prevSeat => prevSeat === seatNumber ? null : seatNumber)
     };
 
     return (
         <>
-        {/* Added 'relative' to the container wrapper to position the button on top-right-mid */}
         <div className="relative mt-6 p-6 bg-gray-50 rounded-xl max-w-2xl mx-auto shadow-sm">
             
-            {/* --- Added Book Now Button --- */}
             <div className="absolute top-5 right-6">
                 <button 
                     disabled={!selectedSeat}
@@ -40,17 +37,17 @@ function SeatCard() {
                 </p>
             </div>
 
-            {/* 5x10 Grid Layout */}
+            {/* 5x10 Grid */}
             <div className="grid grid-cols-10 gap-3 justify-items-center">
                 {seatsArray.map((seatNumber) => {
-                    const isSelected = selectedSeat === seatNumber;
-                    const isBooked = booked.includes(seatNumber); // Check if seat is in backend array
+                    const isSelected = selectedSeat === seatNumber
+                    const isBooked = booked.includes(seatNumber)
 
                     return (
                         <button
                             key={seatNumber}
                             onClick={() => handleSeatClick(seatNumber)}
-                            disabled={isBooked} // Step 1: HTML restriction to prevent clicks
+                            disabled={isBooked} 
                             className={`w-10 h-10 flex items-center justify-center rounded-md border text-sm font-medium transition-all select-none
                 ${isBooked
                                     ? 'bg-gray-200 border-gray-300 text-gray-400 cursor-not-allowed line-through' // Step 2: Booked styles

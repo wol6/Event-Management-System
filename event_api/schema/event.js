@@ -24,34 +24,43 @@ const eventSchema = new mongoose.Schema(
     },
     time: {
       type: String,
-       required: true,
+      required: true,
     },
     capacity: {
       type: Number,
       required: true,
     },
-     booked: {
+    booked: {
       type: Number,
       required: true,
       default: 0
+    },
+    bookedArr: {
+      type: Array
     },
     category: {
       type: String,
       required: true,
       trim: true,
     },
+    eventType: {
+      type: String,
+      enum: ["open", "seated"],
+      required: true,
+      default: "open"
+    },
     image: {
-      type: String, 
-      default: "", 
+      type: String,
+      default: "",
     },
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "users", 
-       required: true,
+      ref: "users",
+      required: true,
     },
   },
   {
-    timestamps: true, 
+    timestamps: true,
   }
 );
 
