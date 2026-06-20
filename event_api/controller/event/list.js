@@ -1,5 +1,5 @@
 import EventModel from "../../schema/event.js"
-import RegEvent from "../../schema/registerevent.js"
+import RegEvent from "../../schema/registrations .js"
 
 export const eventList = async (req, res) => {
     try {

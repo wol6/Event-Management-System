@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 
-function ViewAttendee({ attOpen, setAttOpen,selectedEvent,attendeeList }) {
+function ViewAttendee({ attOpen, setAttOpen, selectedEvent, attendeeList }) {
     const dialogRef = useRef(null)
 
     useEffect(() => {
@@ -33,7 +33,7 @@ function ViewAttendee({ attOpen, setAttOpen,selectedEvent,attendeeList }) {
                         </button>
                     </div>
 
- <div className="flex-1 p-6 md:p-10 max-w-4xl mx-auto w-full">
+                    <div className="flex-1 p-6 md:p-10 max-w-4xl mx-auto w-full">
                         {!attendeeList || attendeeList.length === 0 ? (
                             /* Empty State Display Banner */
                             <div className="text-center py-12 rounded-xl border-2 border-dashed border-gray-200 bg-gray-50/50 p-6 mt-6">
@@ -69,8 +69,8 @@ function ViewAttendee({ attOpen, setAttOpen,selectedEvent,attendeeList }) {
                                     </table>
                                 </div>
                             </div>
-                        )} 
-                        </div>
+                        )}
+                    </div>
 
                 </div>
             </dialog>

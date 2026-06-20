@@ -1,9 +1,9 @@
 import { Route, Routes } from 'react-router-dom'
 import './App.css'
-import Home from './pages/landingPage/Home'
+import Home from './pages/Home'
 import Login from './pages/login/Login'
 import Register from './pages/login/Register'
-import UserHome from './pages/landingPage/UserHome'
+import UserHome from './pages/user/UserHome'
 import Dashboard from './pages/admin/Dashboard'
 
 function App() {

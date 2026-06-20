@@ -39,7 +39,8 @@ function EventList({refreshList}) {
                 params: { id: event._id }
             })
             if (resp.success) {
-                const attendeesList = resp.attendeeList[0].userDetails.map(user => ({
+                const users = resp.attendeeList[0]?.userDetails || []
+                const attendeesList = users.map(user => ({
                     name: user.name,
                     email: user.email
                 }))

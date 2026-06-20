@@ -8,17 +8,17 @@ function EventCard({ events, setRefresh }) {
 
     function handleRegistration(event) {
         if (event.eventType == "open") {
-            handleAttendes(event._id)
+            handleRegister(event._id)
         } else {
             openDialogBox(event)
         }
     }
 
-    async function handleAttendes(id) {
+    async function handleRegister(id) {
         const userConfirmed = window.confirm("Are you sure you want to register for this event?")
         if (!userConfirmed) return
         try {
-            const { data: resp } = await api.post('/reg-event', { id })
+            const { data: resp } = await api.post('/reserve-seat', { id })
             if (resp.success) {
                 setRefresh(prev => prev + 1)
             }
@@ -73,7 +73,7 @@ function EventCard({ events, setRefresh }) {
                             : "bg-blue-600 text-white cursor-pointer hover:bg-blue-700"
                             }`}
                             disabled={event.isJoined}
-                            // onClick={() => handleAttendes(event._id)}
+                            // onClick={() => handleRegister(event._id)}
                             onClick={() => handleRegistration(event)}
                         // onClick={() => openDialogBox(event)}   
                         >
