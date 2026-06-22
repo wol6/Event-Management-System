@@ -1,5 +1,5 @@
 import EventModel from "../../schema/event.js"
-import RegEvent from "../../schema/registerevent.js"
+import RegEvent from "../../schema/registrations .js"
 
 export const eventList = async (req, res) => {
     try {
@@ -14,6 +14,8 @@ export const eventList = async (req, res) => {
             limit = 0
             filter = { title: { $regex: search, $options: "i" } }
         }
+
+        const totalPgCount = await EventModel.countDocuments()
 
         const list = await EventModel.find(filter).skip(pageNo * limit).limit(limit).sort({ date: 1 })
             .lean()
@@ -33,7 +35,8 @@ export const eventList = async (req, res) => {
         return res.status(200).json({
             success: true,
             message: "Fetched successfully",
-            list:updatedList
+            list: updatedList,
+            totalPgCount
         })
     } catch (err) {
         console.log(err)

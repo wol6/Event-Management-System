@@ -3,7 +3,7 @@ import api from '../../api/axios'
 import EventDialog from './EventDialog'
 import ViewAttendee from './ViewAttendee'
 
-function EventList({refreshList}) {
+function EventList({ refreshList }) {
     const [open, setOpen] = useState(false)
     const [attOpen, setAttOpen] = useState(false)
     const [events, setEvents] = useState([])
@@ -13,13 +13,13 @@ function EventList({refreshList}) {
 
     useEffect(() => {
         showEvents()
-    }, [refreshList])
+    }, [refreshList, open])
     async function showEvents() {
         try {
-            const { data: resp } = await api.get('/show-event',{
+            const { data: resp } = await api.get('/show-event', {
                 params: {
                     pageNo: 0,
-                    limit:0,
+                    limit: 0,
                 }
             })
             if (resp.success) {
@@ -39,7 +39,8 @@ function EventList({refreshList}) {
                 params: { id: event._id }
             })
             if (resp.success) {
-                const attendeesList = resp.attendeeList[0].userDetails.map(user => ({
+                const users = resp.attendeeList[0]?.userDetails || []
+                const attendeesList = users.map(user => ({
                     name: user.name,
                     email: user.email
                 }))

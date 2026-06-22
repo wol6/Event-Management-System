@@ -29,6 +29,7 @@ function Login() {
             const { data: resp } = await api.post('/signin', loginObj)
             console.log(resp)
             if(resp.success){
+                sessionStorage.setItem('user',JSON.stringify(resp.user))
                 resp.user.isAdmin ? navigate('/admin') : navigate('/user')
                 
             }

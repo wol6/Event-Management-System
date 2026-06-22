@@ -36,6 +36,7 @@ function Register() {
             const { data: resp } = await api.post('/signup', userObj)
 
             if (resp.success) {
+                alert(resp.message)
                 navigate('/login')
             }
         } catch (e) {

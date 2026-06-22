@@ -1,9 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react'
 import api from '../../api/axios'
 
-function EventDialog({ open, setOpen, editEventObj,onRefresh }) {
+function EventDialog({ open, setOpen, editEventObj, onRefresh }) {
 
     const dialogRef = useRef(null)
+
+    const [eventType] = useState(['open', 'seated'])
 
     const [categories] = useState([
         "Workshop",
@@ -22,6 +24,7 @@ function EventDialog({ open, setOpen, editEventObj,onRefresh }) {
         time: "",
         capacity: "",
         category: "",
+        eventType:""
     };
 
     const [eventObj, setEventObj] = useState(initialFormState)
@@ -48,10 +51,11 @@ function EventDialog({ open, setOpen, editEventObj,onRefresh }) {
                 title: editEventObj.title || "",
                 description: editEventObj.description || "",
                 location: editEventObj.location || "",
-                date: editEventObj.date ? editEventObj.date.split('T')[0] : "",
+                date: editEventObj.date ? editEventObj.date : "",
                 time: editEventObj.time || "",
                 capacity: editEventObj.capacity || "",
-                category: editEventObj.category || ""
+                category: editEventObj.category || "",
+                eventType:editEventObj.eventType || ""
             });
         } else {
             setEventObj(initialFormState);
@@ -182,7 +186,7 @@ function EventDialog({ open, setOpen, editEventObj,onRefresh }) {
                         </div>
 
                         {/* Capacity & Category */}
-                        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
                             <div>
                                 <label htmlFor="capacity" className="mb-2 block text-sm font-medium text-gray-700">
                                     Capacity
@@ -212,6 +216,27 @@ function EventDialog({ open, setOpen, editEventObj,onRefresh }) {
                                     <option value="">Select Category</option>
 
                                     {categories.map((cat, index) => (
+                                        <option key={index} value={cat}>
+                                            {cat}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div>
+                                <label htmlFor="category" className="mb-2 block text-sm font-medium text-gray-700">
+                                    Event Type
+                                </label>
+                                <select
+                                    id="eventType"
+                                    name="eventType"
+                                    value={eventObj.eventType}
+                                    onChange={handleChange}
+                                    className="w-full rounded-lg border border-gray-300 px-4 py-2.5 outline-none bg-white focus:border-blue-500 cursor-pointer"
+                                    required
+                                >
+                                    <option value="">Select Type</option>
+
+                                    {eventType.map((cat, index) => (
                                         <option key={index} value={cat}>
                                             {cat}
                                         </option>

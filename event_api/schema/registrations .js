@@ -4,26 +4,25 @@ const regEventSchema = new mongoose.Schema(
   {
     event: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "events", 
+      ref: "events",
       required: true
     },
     user: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "users", 
-      required:true
+      ref: "users",
+      required: true
     },
-    registeredAt: {
-      type: Date,
-      default: Date.now, 
+    seatNo: {
+      type: Number
     },
   },
   {
-    timestamps: true, 
+    timestamps: true,
   }
 );
 
 regEventSchema.index({ event: 1, user: 1 }, { unique: true });
 
-const RegEvent = mongoose.model("RegEvent", regEventSchema);
+const RegEvent = mongoose.model("registrations", regEventSchema);
 
 export default RegEvent;

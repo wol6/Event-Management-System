@@ -11,7 +11,7 @@ export const verifyToken = (req, res, next) => {
             })
         }
 
-        jwt.verify(token, "feibiescyerxoroudfdhnceiula", (err, user) => {
+        jwt.verify(token, process.env.JWT_SECRETKEY, (err, user) => {
             if (err) {
                 return res.status(403).json({ message: 'Invalid or expired token.' });
             }
