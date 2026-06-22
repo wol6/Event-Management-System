@@ -1,3 +1,6 @@
+import dotenv from "dotenv"
+dotenv.config()
+
 import express from 'express'
 import mongoose from 'mongoose'
 import cors from "cors"
@@ -14,13 +17,17 @@ app.use(express.json())
 app.use(cookieParser())
 app.use('/api', route)
 
-const atlasUrl = ""
-const localUrl = "mongodb://localhost:27017/events"
+app.use((err,req,res,next)=>{
+    console.log("Internal Server Error",err)
+    res.status(500).json({
+        message:err.message || "Internal Server Error"
+    })
+})
 
-mongoose.connect(atlasUrl).then(() => {
-    app.listen(5000, () => {
+mongoose.connect(process.env.URL).then(() => {
+    app.listen(process.env.PORT, () => {
         console.log(`Connected to Server...`)
     })
 }).catch((error) => {
-    console.log(error)
+    console.log("Connection Failed...",error)
 })

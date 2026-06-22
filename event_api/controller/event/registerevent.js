@@ -73,7 +73,9 @@ export const viewAttendees = async (req, res) => {
             $match: {
                 event: new mongoose.Types.ObjectId(eventid)
             }
-        }, { $group: { _id: "$event", users: { $addToSet: "$user" } } },
+        },
+        { $group: { _id: "$event", users: { $addToSet: "$user" } } },
+
         { $lookup: { from: "users", localField: "users", foreignField: "_id", as: "userDetails" } }])
 
         return res.status(200).json({

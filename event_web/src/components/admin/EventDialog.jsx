@@ -51,7 +51,7 @@ function EventDialog({ open, setOpen, editEventObj, onRefresh }) {
                 title: editEventObj.title || "",
                 description: editEventObj.description || "",
                 location: editEventObj.location || "",
-                date: editEventObj.date ? editEventObj.date.split('T')[0] : "",
+                date: editEventObj.date ? editEventObj.date : "",
                 time: editEventObj.time || "",
                 capacity: editEventObj.capacity || "",
                 category: editEventObj.category || "",

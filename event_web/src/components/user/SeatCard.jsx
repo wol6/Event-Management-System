@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import api from '../../api/axios'
 
-function SeatCard({ eventObj }) {
+function SeatCard({ eventObj,setOpen }) {
 
     const totalSeats = eventObj.capacity
     const seatsArray = Array.from({ length: totalSeats }, (_, index) => index + 1)
@@ -18,6 +18,7 @@ function SeatCard({ eventObj }) {
                 id : eventObj._id,
                 seatNo:selectedSeat
             })
+            setOpen(false)
         } catch (e) {
             console.log(e)
         }
