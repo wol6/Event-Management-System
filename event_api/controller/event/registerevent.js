@@ -12,7 +12,7 @@ export const regAttendee = async (req, res) => {
 
         const eventid = req.body.id
         const userid = req.user.id
-        const seatNo = req.body.seatNo || null
+        const seatNos = req.body.seatNos
 
         console.log('non seat reg')
 
@@ -33,20 +33,24 @@ export const regAttendee = async (req, res) => {
             return res.status(400).json({ message: "This event is completely sold out" });
         }
 
-        const filter = { $inc: { booked: 1 } }
+        const seatCount = seatNos && seatNos.length > 0 ? seatNos.length : 1
 
-        if (seatNo) {
-            if (event.bookedArr && event.bookedArr.includes(seatNo)) {
+        const filter = { $inc: { booked: seatCount } }
+
+        if (seatNos.length > 0) {
+            const seatConflict = await EventModel.findOne({ _id: eventid, bookedArr: { $in: { seatNos } } })
+                .session(session)
+            if (seatConflict) {
                 //rollback
                 await session.abortTransaction()
                 return res.status(400).json({ message: "This seat is already booked" })
             }
-            filter.$addToSet = { bookedArr: seatNo }
+            filter.$addToSet = { bookedArr: { $each:  seatNos  } }
         }
 
         await EventModel.findByIdAndUpdate(eventid, filter, { session })
 
-        await RegEvent.create([{ event: eventid, user: userid, seatNo }], { session })
+        await RegEvent.create([{ event: eventid, user: userid, seatNos }], { session })
 
         //commit
         await session.commitTransaction()

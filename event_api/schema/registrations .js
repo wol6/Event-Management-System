@@ -12,8 +12,8 @@ const regEventSchema = new mongoose.Schema(
       ref: "users",
       required: true
     },
-    seatNo: {
-      type: Number
+    seatNos: {
+      type: Array
     },
   },
   {
