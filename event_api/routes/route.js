@@ -4,6 +4,7 @@ import { verifyToken } from "../middleware/auth.js"
 import { createEvent, deleteEvent, updateEvent } from "../controller/event/event.js"
 import { eventList } from "../controller/event/list.js"
 import { regAttendee, viewAttendees } from "../controller/event/registerevent.js"
+import { userEvents } from "../controller/user/user.js"
 
 const route = express.Router()
 
@@ -19,5 +20,6 @@ route.delete('/delete-event/:id', verifyToken, deleteEvent)
 
 route.post('/reserve-seat', verifyToken, regAttendee)
 route.get('/get-attendee', verifyToken, viewAttendees)
+route.get('/get-user-events', verifyToken,userEvents)
 
 export default route

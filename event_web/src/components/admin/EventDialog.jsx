@@ -40,9 +40,9 @@ function EventDialog({ open, setOpen, editEventObj, onRefresh }) {
         if (!dialog) return;
 
         if (open) {
-            dialog.showModal();
+            dialog.showModal()
         } else {
-            dialog.close();
+            dialog.close()
         }
     }, [open])
     useEffect(() => {

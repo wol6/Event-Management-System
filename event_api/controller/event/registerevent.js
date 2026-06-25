@@ -12,7 +12,7 @@ export const regAttendee = async (req, res) => {
 
         const eventid = req.body.id
         const userid = req.user.id
-        const seatNos = req.body.seatNos
+        const seatNos = req.body.seatNos || []
 
         console.log('non seat reg')
 
